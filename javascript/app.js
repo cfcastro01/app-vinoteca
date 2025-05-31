@@ -44,15 +44,39 @@ function renderWineList() {
     return matchesText && matchesRating;
   });
 
-  wineList.innerHTML = filteredWines.length
-    ? filteredWines.map(w => `
-        <div class="wine-card">
+wineList.innerHTML = filteredWines.length
+  ? filteredWines.map((w, index) => `
+      <div class="wine-card">
+        <div class="wine-header">
           <h2>${w.name}</h2>
-          <p>${w.type}</p>
-          <span>${w.rating === 'liked' ? '✔️ Gostei' : '❌ Não gostei'}</span>
+          <div class="card-actions">
+            <button onclick="deleteWine(${index})" class="icon-button" title="Excluir">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </div>
         </div>
-      `).join('')
-    : `<p>Nenhum vinho encontrado.</p>`;
+        <p>${w.type}</p>
+        <span>${w.rating === 'liked' ? '✔️ Gostei' : '❌ Não gostei'}</span>
+      </div>
+    `).join('')
+  : `<p>Nenhum vinho encontrado.</p>`;
+}
+
+// EXCLUIR VINHO //
+function deleteWine(index) {
+  // Confirmação para evitar exclusões acidentais
+  const confirmDelete = confirm("Tem certeza que deseja excluir este vinho?");
+  
+  if (confirmDelete) {
+    // Remove 1 vinho da lista, a partir da posição index
+    wines.splice(index, 1);
+    
+    // Atualiza os dados no localStorage
+    saveWinesToStorage();
+    
+    // Reexibe a lista atualizada
+    renderWineList();
+  }
 }
 
 function handleFormSubmit(event) {

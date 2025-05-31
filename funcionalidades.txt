@@ -1,0 +1,77 @@
+🛠️ 1. Editar vinho
+Objetivo: Permitir que o usuário atualize nome, tipo ou avaliação de um vinho cadastrado.
+
+Como fazer:
+
+Adicionar um botão "✏️ Editar" em cada cartão.
+Preencher o formulário com os dados do vinho selecionado.
+Salvar alterações no mesmo índice do array.
+
+🗑️ 2. Excluir vinho
+Objetivo: Remover permanentemente um vinho da lista.
+
+Como fazer:
+
+Adicionar um botão "🗑️ Excluir" em cada cartão.
+Usar wines.splice(index, 1) e atualizar o localStorage.
+
+🖼️ 3. Upload ou URL de imagem do vinho
+Objetivo: Visualmente identificar vinhos.
+
+Como fazer:
+
+Adicionar campo de imagem no formulário.
+Exibir a imagem no cartão do vinho.
+Armazenar como wine.imageUrl ou usar FileReader.
+
+⭐ 4. Avaliação com estrelas
+Objetivo: Tornar a avaliação mais intuitiva.
+
+Como fazer:
+
+Substituir o select de avaliação por 1 a 5 estrelas clicáveis.
+Salvar como número de 1 a 5.
+Exibir com ★
+
+🧠 5. Ordenar por nome, tipo ou avaliação
+Objetivo: Facilitar a navegação em listas grandes.
+
+Como fazer:
+
+Criar select com opções de ordenação.
+Usar .sort() para reordenar a lista.
+
+📊 6. Estatísticas simples
+Objetivo: Mostrar insights, como:
+
+Total de vinhos cadastrados
+Quantos você gostou
+Uva mais comum
+
+📱 7. Modo escuro (dark mode)
+Objetivo: Melhor experiência visual, especialmente à noite.
+
+Como fazer:
+
+Alternar uma classe no body
+Salvar preferência no localStorage
+
+🌐 8. Compartilhar vinhos favoritos
+Objetivo: Compartilhar sua lista com amigos.
+
+Como fazer:
+
+Gerar link com os dados codificados (base64 ou JSON compactado)
+Ou exportar para .json
+
+🧪 9. Teste automático do localStorage
+Verificar se há dados ao abrir e perguntar se deseja restaurar.
+
+📦 10. Backup e restauração
+Exportar a lista para um arquivo .json
+Permitir importar esse arquivo para restaurar os vinhos
+
+
+
+
+
