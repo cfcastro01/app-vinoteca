@@ -50,6 +50,9 @@ wineList.innerHTML = filteredWines.length
         <div class="wine-header">
           <h2>${w.name}</h2>
           <div class="card-actions">
+            <button onclick="editWine(${index})" class="icon-button" title="Editar">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
             <button onclick="deleteWine(${index})" class="icon-button" title="Excluir">
               <span class="material-symbols-outlined">delete</span>
             </button>
@@ -79,6 +82,23 @@ function deleteWine(index) {
   }
 }
 
+// EDITAR VINHO //
+function editWine(index) {
+  const wineToEdit = wines[index];
+
+  // Preenche o formulário com os dados do vinho
+  wineName.value = wineToEdit.name;
+  wineType.value = wineToEdit.type;
+  wineRating.value = wineToEdit.rating;
+
+  // Salva o índice do vinho que está sendo editado
+  wineForm.setAttribute('data-editing-index', index);
+
+  // Muda para a tela de formulário
+  showFormScreen();
+}
+
+
 function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -88,12 +108,21 @@ function handleFormSubmit(event) {
     rating: wineRating.value
   };
 
-  if (newWine.name && newWine.type) {
+const editingIndex = wineForm.getAttribute('data-editing-index');
+
+  if (editingIndex !== null) {
+    // Atualiza vinho existente
+    wines[editingIndex] = newWine;
+    wineForm.removeAttribute('data-editing-index'); // Limpa o modo edição
+  } else {
+    // Adiciona novo vinho
+    if (!newWine.name || !newWine.type) return;
     wines.push(newWine);
-    saveWinesToStorage();
-    wineForm.reset();
-    showListScreen();
   }
+
+  saveWinesToStorage();
+  wineForm.reset();
+  showListScreen();
 }
 
 // EVENTOS
