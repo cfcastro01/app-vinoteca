@@ -41,7 +41,7 @@ async function renderWineList() {
 
   const snapshot = await getDocs(winesCol);
   const wineDocs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  console.log('wineDocs:', wineDocs);
+  // console.log('wineDocs:', wineDocs);
 
 const filteredWines = wineDocs.filter(wine => {
   const name = wine.name?.toLowerCase() || '';
@@ -57,10 +57,17 @@ const filteredWines = wineDocs.filter(wine => {
           <div class="wine-header">
             <h2>${w.name}</h2>
             <div class="card-actions">
-              <button onclick="editWine('${w.id}', '${w.name}', '${w.type}', '${w.rating}')" class="icon-button" title="Editar">
+              <button class="icon-button btn-edit" 
+                      data-id="${w.id}" 
+                      data-name="${w.name}" 
+                      data-type="${w.type}" 
+                      data-rating="${w.rating}" 
+                      title="Editar">
                 <span class="material-symbols-outlined">edit</span>
               </button>
-              <button onclick="deleteWine('${w.id}')" class="icon-button" title="Excluir">
+              <button class="icon-button btn-delete" 
+                      data-id="${w.id}" 
+                      title="Excluir">
                 <span class="material-symbols-outlined">delete</span>
               </button>
             </div>
@@ -137,5 +144,27 @@ filterRating.addEventListener('change', renderWineList);
 // INICIALIZAÇÃO
 // showListScreen(); // Começa na tela de lista
 showFormScreen(); // Começa na tela de cadastro
+
+wineList.addEventListener('click', function (event) {
+  const target = event.target.closest('button');
+
+  if (!target) return;
+
+  // Botão Editar
+  if (target.classList.contains('btn-edit')) {
+    const id = target.dataset.id;
+    const name = target.dataset.name;
+    const type = target.dataset.type;
+    const rating = target.dataset.rating;
+
+    editWine(id, name, type, rating);
+  }
+
+  // Botão Excluir
+  if (target.classList.contains('btn-delete')) {
+    const id = target.dataset.id;
+    deleteWine(id);
+  }
+});
 
 // localStorage.clear();
