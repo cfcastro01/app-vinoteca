@@ -12,7 +12,12 @@ const searchInput = document.getElementById('search');
 const filterRating = document.getElementById('filter-rating');
 
 // ESTADO
-let wines = JSON.parse(localStorage.getItem('wines')) || [];
+// let wines = JSON.parse(localStorage.getItem('wines')) || [];
+
+// FIRESTORE
+const db = window.db;
+const { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } = window.firestoreFns;
+const winesCol = collection(db, 'wines');
 
 // FUNÇÕES
 function showFormScreen() {
@@ -30,76 +35,72 @@ function showListScreen() {
   renderWineList();
 }
 
-function saveWinesToStorage() {
-  localStorage.setItem('wines', JSON.stringify(wines));
-}
-
-function renderWineList() {
+async function renderWineList() {
   const search = searchInput.value.toLowerCase();
   const ratingFilter = filterRating.value;
 
-  const filteredWines = wines.filter(wine => {
-    const matchesText = wine.name.toLowerCase().includes(search) || wine.type.toLowerCase().includes(search);
-    const matchesRating = ratingFilter === 'all' || wine.rating === ratingFilter;
-    return matchesText && matchesRating;
-  });
+  const snapshot = await getDocs(winesCol);
+  const wineDocs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  console.log('wineDocs:', wineDocs);
 
-wineList.innerHTML = filteredWines.length
-  ? filteredWines.map((w, index) => `
-      <div class="wine-card">
-        <div class="wine-header">
-          <h2>${w.name}</h2>
-          <div class="card-actions">
-            <button onclick="editWine(${index})" class="icon-button" title="Editar">
-              <span class="material-symbols-outlined">edit</span>
-            </button>
-            <button onclick="deleteWine(${index})" class="icon-button" title="Excluir">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
+const filteredWines = wineDocs.filter(wine => {
+  const name = wine.name?.toLowerCase() || '';
+  const type = wine.type?.toLowerCase() || '';
+  const matchesText = name.includes(search) || type.includes(search);
+  const matchesRating = ratingFilter === 'all' || wine.rating === ratingFilter;
+  return matchesText && matchesRating;
+});
+
+  wineList.innerHTML = filteredWines.length
+    ? filteredWines.map((w) => `
+        <div class="wine-card">
+          <div class="wine-header">
+            <h2>${w.name}</h2>
+            <div class="card-actions">
+              <button onclick="editWine('${w.id}', '${w.name}', '${w.type}', '${w.rating}')" class="icon-button" title="Editar">
+                <span class="material-symbols-outlined">edit</span>
+              </button>
+              <button onclick="deleteWine('${w.id}')" class="icon-button" title="Excluir">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
           </div>
+          <p>${w.type}</p>
+          <span>${w.rating === 'liked' ? '✔️ Gostei' : '❌ Não gostei'}</span>
         </div>
-        <p>${w.type}</p>
-        <span>${w.rating === 'liked' ? '✔️ Gostei' : '❌ Não gostei'}</span>
-      </div>
-    `).join('')
-  : `<p>Nenhum vinho encontrado.</p>`;
+      `).join('')
+    : `<p>Nenhum vinho encontrado.</p>`;
 }
 
 // EXCLUIR VINHO //
-function deleteWine(index) {
-  // Confirmação para evitar exclusões acidentais
+async function deleteWine(id) {
   const confirmDelete = confirm("Tem certeza que deseja excluir este vinho?");
-  
   if (confirmDelete) {
-    // Remove 1 vinho da lista, a partir da posição index
-    wines.splice(index, 1);
-    
-    // Atualiza os dados no localStorage
-    saveWinesToStorage();
-    
-    // Reexibe a lista atualizada
+    await deleteDoc(doc(db, 'wines', id));
     renderWineList();
   }
 }
 
 // EDITAR VINHO //
-function editWine(index) {
-  const wineToEdit = wines[index];
-
-  // Preenche o formulário com os dados do vinho
-  wineName.value = wineToEdit.name;
-  wineType.value = wineToEdit.type;
-  wineRating.value = wineToEdit.rating;
-
-  // Salva o índice do vinho que está sendo editado
-  wineForm.setAttribute('data-editing-index', index);
-
-  // Muda para a tela de formulário
+function editWine(id, name, type, rating) {
+  wineName.value = name;
+  wineType.value = type;
+  wineRating.value = rating;
+  wineForm.setAttribute('data-editing-id', id);
   showFormScreen();
 }
 
+// Exibir feedback visual após salvar ou excluir
+function showToast(msg) {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerText = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
 
-function handleFormSubmit(event) {
+
+async function handleFormSubmit(event) {
   event.preventDefault();
 
   const newWine = {
@@ -108,21 +109,22 @@ function handleFormSubmit(event) {
     rating: wineRating.value
   };
 
-const editingIndex = wineForm.getAttribute('data-editing-index');
+  const editingId = wineForm.getAttribute('data-editing-id');
 
-  if (editingIndex !== null) {
-    // Atualiza vinho existente
-    wines[editingIndex] = newWine;
-    wineForm.removeAttribute('data-editing-index'); // Limpa o modo edição
+  if (editingId) {
+    // Atualizar vinho existente
+    const wineRef = doc(db, 'wines', editingId);
+    await updateDoc(wineRef, newWine);
+    wineForm.removeAttribute('data-editing-id');
   } else {
-    // Adiciona novo vinho
+    // Adicionar novo vinho
     if (!newWine.name || !newWine.type) return;
-    wines.push(newWine);
+    await addDoc(winesCol, newWine);
   }
 
-  saveWinesToStorage();
   wineForm.reset();
   showListScreen();
+  showToast(editingId ? 'Vinho atualizado com sucesso!' : 'Vinho adicionado com sucesso!');
 }
 
 // EVENTOS
@@ -133,7 +135,7 @@ searchInput.addEventListener('input', renderWineList);
 filterRating.addEventListener('change', renderWineList);
 
 // INICIALIZAÇÃO
-showFormScreen(); // Começa no formulário por padrão
-
+// showListScreen(); // Começa na tela de lista
+showFormScreen(); // Começa na tela de cadastro
 
 // localStorage.clear();

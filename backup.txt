@@ -1,0 +1,102 @@
+// ESTADO
+// let wines = JSON.parse(localStorage.getItem('wines')) || [];
+
+function saveWinesToStorage() {
+  localStorage.setItem('wines', JSON.stringify(wines));
+}
+
+
+// RENDERIZAR WINE-CARD NA VERSÃO LOCAL STORAGE
+
+function renderWineList() {
+  const search = searchInput.value.toLowerCase();
+  const ratingFilter = filterRating.value;
+
+  const filteredWines = wines.filter(wine => {
+    const matchesText = wine.name.toLowerCase().includes(search) || wine.type.toLowerCase().includes(search);
+    const matchesRating = ratingFilter === 'all' || wine.rating === ratingFilter;
+    return matchesText && matchesRating;
+  });
+
+wineList.innerHTML = filteredWines.length
+  ? filteredWines.map((w, index) => `
+      <div class="wine-card">
+        <div class="wine-header">
+          <h2>${w.name}</h2>
+          <div class="card-actions">
+            <button onclick="editWine(${index})" class="icon-button" title="Editar">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+            <button onclick="deleteWine(${index})" class="icon-button" title="Excluir">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+          </div>
+        </div>
+        <p>${w.type}</p>
+        <span>${w.rating === 'liked' ? '✔️ Gostei' : '❌ Não gostei'}</span>
+      </div>
+    `).join('')
+  : `<p>Nenhum vinho encontrado.</p>`;
+}
+
+// EXCLUIR VINHO //
+function deleteWine(index) {
+  // Confirmação para evitar exclusões acidentais
+  const confirmDelete = confirm("Tem certeza que deseja excluir este vinho?");
+  
+  if (confirmDelete) {
+    // Remove 1 vinho da lista, a partir da posição index
+    wines.splice(index, 1);
+    
+    // Atualiza os dados no localStorage
+    saveWinesToStorage();
+    
+    // Reexibe a lista atualizada
+    renderWineList();
+  }
+}
+
+// EDITAR VINHO //
+function editWine(index) {
+  const wineToEdit = wines[index];
+
+  // Preenche o formulário com os dados do vinho
+  wineName.value = wineToEdit.name;
+  wineType.value = wineToEdit.type;
+  wineRating.value = wineToEdit.rating;
+
+  // Salva o índice do vinho que está sendo editado
+  wineForm.setAttribute('data-editing-index', index);
+
+  // Muda para a tela de formulário
+  showFormScreen();
+}
+
+function handleFormSubmit(event) {
+  event.preventDefault();
+
+  const newWine = {
+    name: wineName.value.trim(),
+    type: wineType.value.trim(),
+    rating: wineRating.value
+  };
+
+const editingIndex = wineForm.getAttribute('data-editing-index');
+
+  if (editingIndex !== null) {
+    // Atualiza vinho existente
+    wines[editingIndex] = newWine;
+    wineForm.removeAttribute('data-editing-index'); // Limpa o modo edição
+  } else {
+    // Adiciona novo vinho
+    if (!newWine.name || !newWine.type) return;
+    wines.push(newWine);
+  }
+
+  saveWinesToStorage();
+  wineForm.reset();
+  showListScreen();
+}
+
+// INICIALIZAÇÃO
+showFormScreen(); // Começa no formulário por padrão
