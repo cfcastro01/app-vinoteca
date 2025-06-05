@@ -27,7 +27,7 @@ body {
 /* Header */
 .header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
   position: relative;
@@ -47,6 +47,7 @@ body {
   display: flex;
   width: 100%;
   border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 1.5rem;
 }
 
 .menu button {

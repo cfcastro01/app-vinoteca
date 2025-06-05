@@ -18,22 +18,37 @@
 
   <div id="auth-screen">
     <div class="container">
-      <header class="header">
-        <h1 class="logo">Vinoteca</h1>
-      </header>
+    <header class="header">
+      <h1 class="logo">Vinoteca</h1>
+    </header>
 
+      <!-- Formulário de Login -->
       <form id="login-form">
-        <input type="email" id="email" placeholder="E-mail" required />
-        <input type="password" id="password" placeholder="Senha" required />
-        <button type="submit">Entrar</button>
+          <h2>Entrar na conta</h2>
+          <input type="email" name="login-email" placeholder="Email" required />
+          <input type="password" name="login-password" placeholder="Senha" required />
+          <button type="submit">Entrar</button>
+          <button class="google-button" type="button">
+            <i class="fa-brands fa-google"></i> Entrar com Google
+          </button>
+          <p class="toggle-form">Não tem uma conta? <a href="#" id="show-register">Criar conta</a></p>
       </form>
 
-      <button class="google-button" type="button">
-        <i class="fa-brands fa-google"></i>
-        Entrar com Google
-      </button>
+      <!-- Formulário de Cadastro -->
+      <form id="register-form" style="display: none;">
+        <h2>Criar uma conta</h2>
+        <input type="text" name="register-name" placeholder="Nome completo" required />
+        <input type="email" name="register-email" placeholder="Email" required />
+        <input type="password" name="register-password" placeholder="Senha" required />
+        <button type="submit">Cadastrar</button>
+        <p class="toggle-form">Já tem uma conta? <a href="#" id="show-login">Entrar</a></p>
+      </form>
+
     </div>
   </div>
 
+  <!-- Firebase + Login -->
+  <script type="module" src="javascript/firebase-app.js"></script>
+  <script type="module" src="javascript/login.js"></script>
 </body>
 </html>
