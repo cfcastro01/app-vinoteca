@@ -16,7 +16,12 @@ h2 {
   font-size: 1.5rem;
   color: #7B2D26;
   text-align: center;
+}
 
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #auth-screen {

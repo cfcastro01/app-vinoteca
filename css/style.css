@@ -30,7 +30,17 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  position: relative;
+  /* position: relative; */
+}
+
+.header-slot {
+  flex-grow: 1; /* Permite que o slot ocupe o espaço disponível */
+  display: flex; /* Importante: transforma o slot em um container flexível também */
+  align-items: center; /* Centraliza o conteúdo dentro do slot verticalmente */
+}
+
+.header-right {
+  justify-content: flex-end;
 }
 
 .logo {
@@ -38,7 +48,18 @@ body {
   font-size: 3rem;
   color: #7B2D26;
   font-weight: 400;
-  margin-bottom: 1rem;
+ }
+
+#logout-btn {
+  background: none;
+  border: none;
+  color: #7B2D26;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#logout-btn:hover {
+  color: #57201a;
 }
 
 /* MENU */
