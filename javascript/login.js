@@ -1,14 +1,16 @@
-const auth = window.auth;
-
+// Arquivo: javascript/login.js
 import {
+  auth,
+  db, // Importe db para interagir com Firestore
+  collection, // Importe collection
+  setDoc, // Importe setDoc para adicionar dados do usuário
+  doc,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithPopup
-} from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-
-import { signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-
+  signInWithPopup,
+  onAuthStateChanged // Para redirecionar se já estiver logado
+} from "./firebase-app.js"; // Importe do seu firebase-app.js
 
 document.addEventListener('DOMContentLoaded', () => {
   // Elementos DOM
@@ -16,7 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const registerForm = document.getElementById('register-form');
   const googleBtn = document.querySelector('.google-button');
 
-  
+  // Verifica o estado de autenticação ao carregar a página de login
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // Se o usuário já estiver logado, redireciona para a página principal
+      window.location.href = 'index.html';
+    }
+  });
+
   // LOGIN
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -25,9 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      window.location.href = 'index.html';
+      // Redirecionamento será tratado pelo onAuthStateChanged acima.
     } catch (error) {
       alert('Erro ao fazer login: ' + error.message);
+      console.error('Erro de login:', error);
     }
   });
 
@@ -39,22 +49,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const password = registerForm.querySelector('[name="register-password"]').value;
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      window.location.href = 'index.html';
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Adiciona o nome do usuário ao Firestore na coleção 'users'
+      // O ID do documento será o UID do usuário
+      await setDoc(doc(db, 'users', user.uid), {
+        name: name,
+        email: email // Opcional: pode armazenar o email também, mas já está no auth
+      });
+
+      // Redirecionamento será tratado pelo onAuthStateChanged
     } catch (error) {
       alert('Erro ao criar conta: ' + error.message);
+      console.error('Erro de registro:', error);
     }
   });
 
   // GOOGLE
   googleBtn.addEventListener('click', async () => {
     const provider = new GoogleAuthProvider();
-    
+
     try {
-      await signInWithPopup(auth, provider);
-      window.location.href = 'index.html';
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Verifica se o usuário já existe no Firestore, se não, adiciona
+      const userDocRef = doc(db, 'users', user.uid);
+      const userDocSnap = await getDocs(userDocRef); // Usando getDocs para verificar a existência do doc
+
+      if (!userDocSnap.exists()) { // Se o documento do usuário não existe
+        await setDoc(userDocRef, {
+          name: user.displayName, // Nome do Google
+          email: user.email
+        });
+      }
+
+      // Redirecionamento será tratado pelo onAuthStateChanged
     } catch (error) {
       alert('Erro ao entrar com Google: ' + error.message);
+      console.error('Erro Google Auth:', error);
     }
   });
 
@@ -70,5 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
     registerForm.style.display = 'none';
     loginForm.style.display = 'block';
   });
-
 });
+
+// localStorage.clear();

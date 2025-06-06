@@ -1,3 +1,17 @@
+// Arquivo: javascript/app.js
+import {
+  db,
+  auth,
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  doc,
+  updateDoc,
+  onAuthStateChanged,
+  signOut
+} from "./firebase-app.js"; // Importe do seu firebase-app.js
+
 // ELEMENTOS DOM (só obter referências, sem listeners ainda)
 const btnShowForm = document.getElementById('btn-show-form');
 const btnShowList = document.getElementById('btn-show-list');
@@ -10,17 +24,7 @@ const wineRating = document.getElementById('wine-rating');
 const wineList = document.getElementById('wine-list');
 const searchInput = document.getElementById('search');
 const filterRating = document.getElementById('filter-rating');
-
-// FIRESTORE (injetado pelo firebase-app.js)
-const db = window.db;
-const { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } = window.firestoreFns;
-
-// AUTH (injetado pelo firebase-app.js)
-const auth = window.auth;
-const { onAuthStateChanged } = window.authFns;
-
-// Importamos signOut diretamente do SDK, para termos certeza de que a função existe
-import { signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+const logoutBtn = document.getElementById('logout-btn'); // Obtenha a referência aqui
 
 let userId = null;
 let winesCol = null;
@@ -43,7 +47,7 @@ function showListScreen() {
   listScreen.style.display = 'block';
   btnShowForm.classList.remove('active');
   btnShowList.classList.add('active');
-  renderWineList();
+  renderWineList(); // Garante que a lista seja renderizada ao alternar para ela
 }
 
 /**
@@ -52,7 +56,10 @@ function showListScreen() {
 async function renderWineList() {
   try {
     if (!winesCol) {
-      console.log("Aguardando inicialização da coleção...");
+      // Se winesCol ainda não estiver definido (usuário não autenticado ou inicialização),
+      // aguarde e tente novamente, ou exiba uma mensagem.
+      // O ideal é que esta função só seja chamada quando userId e winesCol estiverem garantidos.
+      wineList.innerHTML = `<p>Carregando vinhos...</p>`;
       return;
     }
 
@@ -108,8 +115,12 @@ async function renderWineList() {
 async function deleteWine(id) {
   const confirmDelete = confirm("Tem certeza que deseja excluir este vinho?");
   if (confirmDelete) {
-    if (!userId) return;
+    if (!userId) {
+      console.warn("Usuário não autenticado, não é possível excluir o vinho.");
+      return;
+    }
     await deleteDoc(doc(db, 'users', userId, 'wines', id));
+    showToast('Vinho excluído com sucesso!');
     renderWineList();
   }
 }
@@ -142,27 +153,43 @@ function showToast(msg) {
 async function handleFormSubmit(event) {
   event.preventDefault();
 
+  if (!userId) {
+    console.warn("Usuário não autenticado, não é possível salvar o vinho.");
+    showToast('Erro: Usuário não autenticado.');
+    return;
+  }
+
   const newWine = {
     name: wineName.value.trim(),
     type: wineType.value.trim(),
     rating: wineRating.value
   };
-  const editingId = wineForm.getAttribute('data-editing-id');
 
-  if (editingId) {
-    // Atualiza o vinho existente
-    const wineRef = doc(db, 'users', userId, 'wines', editingId);
-    await updateDoc(wineRef, newWine);
-    wineForm.removeAttribute('data-editing-id');
-  } else {
-    // Adiciona um novo vinho
-    if (!newWine.name || !newWine.type) return;
-    await addDoc(winesCol, newWine);
+  if (!newWine.name || !newWine.type) {
+    showToast('Por favor, preencha o nome e o tipo do vinho.');
+    return;
   }
 
-  wineForm.reset();
-  showListScreen();
-  showToast(editingId ? 'Vinho atualizado com sucesso!' : 'Vinho adicionado com sucesso!');
+  const editingId = wineForm.getAttribute('data-editing-id');
+
+  try {
+    if (editingId) {
+      // Atualiza o vinho existente
+      const wineRef = doc(db, 'users', userId, 'wines', editingId);
+      await updateDoc(wineRef, newWine);
+      wineForm.removeAttribute('data-editing-id');
+      showToast('Vinho atualizado com sucesso!');
+    } else {
+      // Adiciona um novo vinho
+      await addDoc(winesCol, newWine);
+      showToast('Vinho adicionado com sucesso!');
+    }
+    wineForm.reset();
+    showListScreen();
+  } catch (error) {
+    console.error("Erro ao salvar vinho:", error);
+    showToast('Erro ao salvar vinho: ' + error.message);
+  }
 }
 
 /**
@@ -196,33 +223,38 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 3) Listener para o botão "Sair" (logout)
-  const logoutBtn = document.getElementById('logout-btn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
       console.log("Clicou em Sair → tentando deslogar...");
       try {
-        await signOut(auth);
+        await signOut(auth); // Use a função signOut importada
         console.log("SignOut realizado com sucesso, redirecionando para login.html");
-        window.location.href = 'login.html';
+        // O onAuthStateChanged abaixo cuidará do redirecionamento
       } catch (err) {
         console.error("Erro ao sair:", err);
         alert('Erro ao sair: ' + err.message);
       }
     });
   }
-});
 
-/**
- * Observa mudanças no estado de autenticação
- */
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    userId = user.uid;
-    winesCol = collection(db, 'users', userId, 'wines');
-    // Se estivermos na página de vinhos, já renderiza a lista
-    renderWineList();
-  } else {
-    // Se não estiver logado, redireciona para login
-    window.location.href = 'login.html';
-  }
-});
+  // 4) Observa mudanças no estado de autenticação APENAS nesta página (index.html)
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      userId = user.uid;
+      winesCol = collection(db, 'users', userId, 'wines');
+      // Uma vez que o usuário está logado e a coleção está definida,
+      // renderize a lista de vinhos ou mostre a tela de cadastro
+      if (listScreen.style.display === 'block') { // Se a lista já estiver visível ou configurada para ser
+        renderWineList();
+      } else {
+        showFormScreen(); // Ou a tela padrão ao entrar
+      }
+    } else {
+      // Se não estiver logado, redireciona para login
+      window.location.href = 'login.html';
+    }
+  });
+
+}); // Fim do DOMContentLoaded
+
+// localStorage.clear();
