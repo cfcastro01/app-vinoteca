@@ -12,23 +12,21 @@
 <body>
   <div class="container">
 
+    <button id="logout-btn">Logout</button>
+
     <header class="header">
-      <div class="header-slot header-left"></div>
-        <h1 class="logo">Vinoteca</h1>
-      <div class="header-slot header-right">
-        <button id="logout-btn">Logout</button>
-      </div>
+      <h1 class="logo">Vinoteca</h1>
     </header>
 
     <nav class="menu">
       <button id="btn-show-form">Cadastrar vinho</button>
-      <button id="btn-show-list">Ver lista</button>
+      <button id="btn-show-list">Minha adega</button>
       <div class="menu-indicator"></div>
     </nav>
 
     <!-- Wine Form Screen -->
     <section id="form-screen">
-      <h1>Adicionar novo vinho</h1>
+      <h1>Cadastrar vinho</h1>
       <form id="wine-form">
         <input type="text" id="wine-name" placeholder="Nome do vinho" required />
         <input type="text" id="wine-type" placeholder="Tipo / Uva" required />

@@ -22,35 +22,15 @@ body {
   max-width: 480px;
   margin: 0 auto;
   padding: 1rem 1.5rem 3rem;
+  position: relative;
 }
-
-/* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  /* position: relative; */
-}
-
-.header-slot {
-  flex-grow: 1; /* Permite que o slot ocupe o espaço disponível */
-  display: flex; /* Importante: transforma o slot em um container flexível também */
-  align-items: center; /* Centraliza o conteúdo dentro do slot verticalmente */
-}
-
-.header-right {
-  justify-content: flex-end;
-}
-
-.logo {
-  font-family: "Imperial Script", cursive;
-  font-size: 3rem;
-  color: #7B2D26;
-  font-weight: 400;
- }
 
 #logout-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem; 
+  z-index: 10;
+  font-size: 1rem;
   background: none;
   border: none;
   color: #7B2D26;
@@ -62,13 +42,28 @@ body {
   color: #57201a;
 }
 
+/* Header */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.logo {
+  font-family: "Imperial Script", cursive;
+  font-size: 3rem;
+  color: #7B2D26;
+  font-weight: 400;
+ }
+
 /* MENU */
 .menu {
   position: relative;
   display: flex;
   width: 100%;
   border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
 }
 
 .menu button {
