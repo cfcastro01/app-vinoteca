@@ -1,53 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vinoteca - Sua Lista de Vinhos</title> <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinoteca - Sua Lista de Vinhos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="container">
+    <div class="container">
+        <!-- Botão de Logout (fora do header principal para maior flexibilidade de posicionamento) -->
+        <button id="logout-btn" title="Sair da conta">Sair</button>
 
-    <button id="logout-btn">Sair</button>
+        <!-- Cabeçalho Principal da Aplicação -->
+        <header class="header">
+            <div class="header-slot header-left"></div> 
+            <h1 class="logo">Vinoteca</h1> <!-- Logo principal do app -->
+            <div class="header-slot header-right"></div>
+        </header>
 
-    <header class="header">
-      <h1 class="logo">Vinoteca</h1> </header>
+        <!-- Navegação entre Telas do Aplicativo -->
+        <nav class="menu">
+            <button id="btn-show-form" class="active">Cadastrar Vinho</button>
+            <button id="btn-show-list">Minha Adega</button>
+            <div class="menu-indicator"></div>
+        </nav>
 
-    <nav class="menu">
-      <button id="btn-show-form">Cadastrar Vinho</button>
-      <button id="btn-show-list">Lista de Vinhos</button>
-      <div class="menu-indicator"></div>
-    </nav>
+        <main>
+            <!-- Seção de Cadastro de Vinho -->
+            <section id="form-screen">
+                <h2>Detalhes do Vinho</h2> <!-- Título secundário para a seção do formulário -->
+                <form id="wine-form">
+                    <input type="text" id="wine-name" placeholder="Nome do Vinho" required>
+                    <input type="text" id="wine-type" placeholder="Tipo de Uva / Variedade" required>
 
-    <section id="form-screen">
-      <h2>Adicionar Novo Vinho</h2> <form id="wine-form">
-        <input type="text" id="wine-name" placeholder="Nome do vinho" required />
-        <input type="text" id="wine-type" placeholder="Tipo / Uva" required />
-        <select id="wine-rating">
-          <option value="liked">✔️ Gostei</option>
-          <option value="not liked">❌ Não Gostei</option>
-        </select>
-        <button type="submit">Salvar Vinho</button>
-      </form>
-    </section>
+                    <select id="wine-location" required>
+                        <option value="">Selecione a Localidade</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Brasil">Brasil</option>
+                        <option value="Chile">Chile</option>
+                        <option value="Espanha">Espanha</option>
+                        <option value="Franca">França</option>
+                        <option value="Italia">Itália</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="Outro">Outro</option>
+                    </select>
 
-    <section id="list-screen" style="display: none;">
-      <h2>Minha Adega</h2> <div class="filters">
-        <input type="text" id="search" placeholder="🔍 Buscar por nome ou uva" />
-        <select id="filter-rating">
-          <option value="all">Todos</option>
-          <option value="liked">Apenas os que Gostei</option>
-          <option value="not liked">Apenas os que Não Gostei</option>
-        </select>
-      </div>
+                    <!-- Campo de Avaliação por Estrelas (Select com Emojis) -->
+                    <select id="wine-rating" required>
+                        <option value="">Avaliação (Estrelas)</option>
+                        <option value="1">⭐</option>
+                        <option value="2">⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                    </select>
+                    
+                    <!-- Campo para Comentários/Notas sobre o Vinho -->
+                    <textarea id="wine-comments" placeholder="Seus comentários sobre o vinho (notas de degustação, ocasião, etc.)" rows="4"></textarea>
 
-      <div id="wine-list"></div> </section>
-  </div>
+                    <button type="submit">Salvar Vinho</button>
+                </form>
+            </section>
 
-  <script type="module" src="javascript/firebase-app.js"></script>
-  <script type="module" src="javascript/app.js"></script>
+            <!-- Seção da Lista de Vinhos (Minha Adega) -->
+            <section id="list-screen" style="display: none;">
+                <h2>Minha Adega</h2> <!-- Título secundário para a seção da lista -->
+                <div class="filters">
+                    <input type="text" id="search" placeholder="🔍 Buscar por nome ou tipo...">
+                    <!-- O filtro de avaliação continua sendo um select para facilitar a lógica de filtragem -->
+                    <select id="filter-rating">
+                        <option value="all">Todas as Avaliações</option>
+                        <option value="1">1 Estrela</option>
+                        <option value="2">2 Estrelas</option>
+                        <option value="3">3 Estrelas</option>
+                        <option value="4">4 Estrelas</option>
+                        <option value="5">5 Estrelas</option>
+                    </select>
+                </div>
+                <div id="wine-list">
+                    <p>Carregando vinhos...</p>
+                </div>
+            </section>
+        </main>
+    </div>
 
+    <!-- Scripts JavaScript da Aplicação -->
+    <script type="module" src="javascript/firebase-app.js"></script>
+    <script type="module" src="javascript/app.js"></script>
 </body>
 </html>
