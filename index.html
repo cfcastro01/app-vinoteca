@@ -3,56 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vinoteca</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter&display=swap" rel="stylesheet">
-  <!-- Biblioteca de icones -->
+  <title>Vinoteca - Sua Lista de Vinhos</title> <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <div class="container">
 
-    <button id="logout-btn">Logout</button>
+    <button id="logout-btn">Sair</button>
 
     <header class="header">
-      <h1 class="logo">Vinoteca</h1>
-    </header>
+      <h1 class="logo">Vinoteca</h1> </header>
 
     <nav class="menu">
-      <button id="btn-show-form">Cadastrar vinho</button>
-      <button id="btn-show-list">Minha adega</button>
+      <button id="btn-show-form">Cadastrar Vinho</button>
+      <button id="btn-show-list">Lista de Vinhos</button>
       <div class="menu-indicator"></div>
     </nav>
 
-    <!-- Wine Form Screen -->
     <section id="form-screen">
-      <h1>Cadastrar vinho</h1>
-      <form id="wine-form">
+      <h2>Adicionar Novo Vinho</h2> <form id="wine-form">
         <input type="text" id="wine-name" placeholder="Nome do vinho" required />
         <input type="text" id="wine-type" placeholder="Tipo / Uva" required />
         <select id="wine-rating">
           <option value="liked">✔️ Gostei</option>
-          <option value="not liked">❌ Não gostei</option>
+          <option value="not liked">❌ Não Gostei</option>
         </select>
-        <button type="submit">Salvar vinho</button>
+        <button type="submit">Salvar Vinho</button>
       </form>
     </section>
 
-    <!-- Wine List Screen -->
     <section id="list-screen" style="display: none;">
-      <h1>Minha adega</h1>
-
-      <div class="filters">
+      <h2>Minha Adega</h2> <div class="filters">
         <input type="text" id="search" placeholder="🔍 Buscar por nome ou uva" />
         <select id="filter-rating">
           <option value="all">Todos</option>
-          <option value="liked">Apenas os que gostei</option>
-          <option value="not liked">Apenas os que não gostei</option>
+          <option value="liked">Apenas os que Gostei</option>
+          <option value="not liked">Apenas os que Não Gostei</option>
         </select>
       </div>
 
-      <div id="wine-list"></div>
-    </section>
+      <div id="wine-list"></div> </section>
   </div>
 
   <script type="module" src="javascript/firebase-app.js"></script>

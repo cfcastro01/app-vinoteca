@@ -1,73 +1,101 @@
+/*
+  -----------------------------------------------------------------------------
+  Importação de Fontes
+  -----------------------------------------------------------------------------
+*/
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap');
 
+/*
+  -----------------------------------------------------------------------------
+  Reset Básico e Estilos Globais
+  -----------------------------------------------------------------------------
+*/
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif; /* Fonte padrão para todo o corpo */
 }
 
 body {
   background-color: #FAFAFA;
   color: #333333;
   line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
+  -webkit-font-smoothing: antialiased; /* Suavização de fonte para Webkit */
+  -moz-osx-font-smoothing: grayscale; /* Suavização de fonte para Firefox no macOS */
+  min-height: 100vh; /* Garante que o corpo ocupe pelo menos a altura total da viewport */
 }
 
-/* Container centralizado */
+/*
+  -----------------------------------------------------------------------------
+  Layout Principal e Container
+  -----------------------------------------------------------------------------
+*/
 .container {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 1rem 1.5rem 3rem;
-  position: relative;
+  max-width: 480px; /* Largura máxima do conteúdo */
+  margin: 0 auto; /* Centraliza o container horizontalmente */
+  padding: 1rem 1.5rem 3rem; /* Espaçamento interno */
+  position: relative; /* Necessário para posicionar o botão de logout de forma absoluta */
 }
 
+/*
+  -----------------------------------------------------------------------------
+  Botão de Logout
+  -----------------------------------------------------------------------------
+*/
 #logout-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1.5rem; 
-  z-index: 10;
+  position: absolute; /* Posição absoluta em relação ao .container */
+  top: 1rem; /* Alinhamento superior */
+  right: 1.5rem; /* Alinhamento direito */
+  z-index: 10; /* Garante que o botão fique acima de outros elementos */
   font-size: 1rem;
   background: none;
   border: none;
   color: #7B2D26;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease; /* Transição suave para o hover */
 }
 
 #logout-btn:hover {
   color: #57201a;
 }
 
-/* Header */
+/*
+  -----------------------------------------------------------------------------
+  Cabeçalho (Header) e Logo
+  -----------------------------------------------------------------------------
+*/
 .header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1.5rem;
+  display: flex; /* Habilita Flexbox */
+  justify-content: center; /* Centraliza o logo horizontalmente */
+  align-items: center; /* Centraliza o logo verticalmente */
+  margin-bottom: 1.5rem; /* Espaço abaixo do header */
 }
 
 .logo {
-  font-family: "Imperial Script", cursive;
-  font-size: 3rem;
-  color: #7B2D26;
-  font-weight: 400;
- }
+  font-family: "Imperial Script", cursive; /* Fonte específica para o logo */
+  font-size: 3rem; /* Tamanho da fonte do logo */
+  color: #7B2D26; /* Cor do logo */
+  font-weight: 400; /* Peso da fonte do logo */
+  /* Margin é 0 pelo reset, mas pode ser redefinido aqui se necessário */
+}
 
-/* MENU */
+/*
+  -----------------------------------------------------------------------------
+  Navegação (Menu)
+  -----------------------------------------------------------------------------
+*/
 .menu {
-  position: relative;
-  display: flex;
-  width: 100%;
-  border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 3rem;
+  position: relative; /* Necessário para posicionar o indicador da linha */
+  display: flex; /* Habilita Flexbox para os botões do menu */
+  width: 100%; /* Largura total */
+  border-bottom: 1px solid #e0e0e0; /* Linha inferior do menu */
+  margin-bottom: 3rem; /* Espaço abaixo do menu */
 }
 
 .menu button {
-  flex: 1;
+  flex: 1; /* Faz com que os botões do menu ocupem espaço igual */
   background: none;
   border: none;
   padding: 0.8rem 0;
@@ -75,38 +103,42 @@ body {
   font-weight: 600;
   color: #7B2D26;
   cursor: pointer;
-  position: relative;
+  position: relative; /* Para possíveis efeitos de transição/alinhamento internos */
   transition: color 0.3s ease;
 }
 
 .menu button:hover,
 .menu button:focus {
   color: #57201a;
-  outline: none;
+  outline: none; /* Remove o contorno padrão do foco */
 }
 
-/* Linha deslizante */
+/* Linha Indicadora Deslizante do Menu */
 .menu-indicator {
-  position: absolute;
-  bottom: 0;
-  height: 2px;
-  width: 50%;
-  background-color: #7B2D26;
-  left: 0;
-  transition: left 0.3s ease;
+  position: absolute; /* Posição absoluta em relação ao .menu */
+  bottom: 0; /* Alinhado à parte inferior */
+  height: 2px; /* Altura da linha */
+  width: 50%; /* Largura inicial (metade, para 2 botões) */
+  background-color: #7B2D26; /* Cor da linha */
+  left: 0; /* Posição inicial (esquerda) */
+  transition: left 0.3s ease; /* Transição para o movimento da linha */
 }
 
-/* Ativo: usado para mover o indicador via JS */
+/* Regras de Ativação do Indicador (controladas via JavaScript) */
 .menu button.active ~ .menu-indicator {
-  left: 0%;
+  left: 0%; /* Posição para o primeiro botão ativo */
 }
 
 .menu button:nth-child(2).active ~ .menu-indicator {
-  left: 50%;
+  left: 50%; /* Posição para o segundo botão ativo */
 }
 
-/* Section Titles */
-section h1 {
+/*
+  -----------------------------------------------------------------------------
+  Títulos de Seção
+  -----------------------------------------------------------------------------
+*/
+section h2 { /* Mudado de h1 para h2 conforme a revisão do HTML */
   font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
   color: #7B2D26;
@@ -114,11 +146,15 @@ section h1 {
   text-align: center;
 }
 
-/* Form */
+/*
+  -----------------------------------------------------------------------------
+  Formulário de Cadastro de Vinho (Wine Form Screen)
+  -----------------------------------------------------------------------------
+*/
 form#wine-form {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  flex-direction: column; /* Organiza os campos verticalmente */
+  gap: 1.5rem; /* Espaço entre os campos */
 }
 
 form#wine-form input,
@@ -154,18 +190,22 @@ form#wine-form button[type="submit"]:focus {
   outline: none;
 }
 
-/* Filters */
+/*
+  -----------------------------------------------------------------------------
+  Filtros da Lista de Vinhos
+  -----------------------------------------------------------------------------
+*/
 .filters {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   margin-bottom: 1.5rem;
-  /* padding: 0 0.3rem; */
+  /* padding: 0 0.3rem; */ /* Remova se não for usado */
 }
 
 .filters input[type="text"],
 .filters select {
-  flex: 1;
+  flex: 1; /* Ocupa o espaço disponível dentro do flex container (filters) */
   padding: 0.8rem;
   font-size: 1rem;
   border: 1.5px solid #ccc;
@@ -179,13 +219,18 @@ form#wine-form button[type="submit"]:focus {
   outline: none;
 }
 
-/* Wine List */
+/*
+  -----------------------------------------------------------------------------
+  Lista de Vinhos (Wine List Screen)
+  -----------------------------------------------------------------------------
+*/
 #wine-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1rem; /* Espaço entre os cartões de vinho */
 }
 
+/* Estilos gerais para itens da lista (se wine-item for uma classe usada) */
 .wine-item {
   padding: 1rem;
   background-color: #fff;
@@ -211,7 +256,7 @@ form#wine-form button[type="submit"]:focus {
   font-weight: 600;
 }
 
-/* // Lista de vinhos // */
+/* Cartão de Vinho Individual (Wine Card) */
 .wine-card {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -244,7 +289,7 @@ form#wine-form button[type="submit"]:focus {
 
 .card-actions {
   display: flex;
-  gap: 1rem;
+  gap: 1rem; /* Espaço entre os botões de ação */
 }
 
 .icon-button {
@@ -265,10 +310,12 @@ form#wine-form button[type="submit"]:focus {
   color: #7B2D26;
 }
 
-
-/* MOBILE */
+/*
+  -----------------------------------------------------------------------------
+  Responsividade (Mobile First)
+  -----------------------------------------------------------------------------
+*/
 /* Já mobile-first, desktop vai herdar estilo */
-
 @media (min-width: 600px) {
   .container {
     max-width: 600px;

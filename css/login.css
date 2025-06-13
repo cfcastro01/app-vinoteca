@@ -1,92 +1,113 @@
-/* === LOGIN === */
+/*
+  -----------------------------------------------------------------------------
+  Importação de Fontes
+  -----------------------------------------------------------------------------
+*/
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap');
 
 
-/* Geral */
+/*
+  -----------------------------------------------------------------------------
+  Reset Básico e Estilos Globais
+  -----------------------------------------------------------------------------
+*/
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', sans-serif;
+  box-sizing: border-box; /* Inclui padding e borda na largura/altura total */
+  margin: 0; /* Remove margens padrão */
+  padding: 0; /* Remove preenchimentos padrão */
+  font-family: 'Inter', sans-serif; /* Define a fonte padrão para o projeto */
 }
 
-h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  color: #7B2D26;
-  text-align: center;
-}
-
-.logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
+/*
+  -----------------------------------------------------------------------------
+  Estilos Específicos da Tela de Autenticação (#auth-screen)
+  -----------------------------------------------------------------------------
+*/
 #auth-screen {
-  padding: 1.5rem;
+  padding: 1.5rem; /* Espaçamento interno para a tela de autenticação */
 }
 
 #auth-screen .container {
-  max-width: 480px;
-  margin: 0 auto;
+  max-width: 480px; /* Largura máxima do container dentro da tela de autenticação */
+  margin: 0 auto; /* Centraliza o container horizontalmente */
 }
 
+/*
+  -----------------------------------------------------------------------------
+  Títulos dos Formulários
+  -----------------------------------------------------------------------------
+*/
+h2 { /* Aplica-se aos títulos h2 dos formulários de login e cadastro */
+  font-family: 'Playfair Display', serif; /* Fonte específica para os títulos */
+  font-size: 1.5rem; /* Tamanho da fonte */
+  color: #7B2D26; /* Cor do título */
+  text-align: center; /* Centraliza o texto do título */
+}
+
+/*
+  -----------------------------------------------------------------------------
+  Estilos de Formulários (Login e Cadastro)
+  -----------------------------------------------------------------------------
+*/
 #auth-screen form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: flex; /* Habilita Flexbox para os campos do formulário */
+  flex-direction: column; /* Organiza os campos verticalmente */
+  gap: 1.5rem; /* Espaço entre os elementos do formulário */
 }
 
-/* Inputs */
+/* Inputs de Texto e Senha */
 #auth-screen input {
-  width: 100%;
-  height: 48px;
-
+  width: 100%; /* Largura total */
+  height: 48px; /* Altura fixa */
   font-size: 1rem;
   padding: 0.8rem;
-  border: 1.5px solid #ccc;
+  border: 1.5px solid #ccc; /* Borda padrão */
   border-radius: 4px;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease; /* Transição para o foco */
 }
 
 #auth-screen input:focus {
-  border-color: #7B2D26;
-  outline: none;
+  border-color: #7B2D26; /* Cor da borda ao focar */
+  outline: none; /* Remove o contorno padrão do navegador */
 }
 
-/* Botão "Entrar" */
+/*
+  -----------------------------------------------------------------------------
+  Botões
+  -----------------------------------------------------------------------------
+*/
+/* Botão "Entrar" (Submit) */
 #auth-screen button[type="submit"] {
-  background-color: #7B2D26;
-  color: #FAFAFA;
+  background-color: #7B2D26; /* Cor de fundo */
+  color: #FAFAFA; /* Cor do texto */
   font-size: 1rem;
   font-weight: 600;
   border: none;
-  cursor: pointer;
+  cursor: pointer; /* Indica que é clicável */
   padding: 0.8rem;
   height: 48px;
   border-radius: 4px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease; /* Transição suave no hover */
 }
 
 #auth-screen button[type="submit"]:hover {
-  background-color: #57201a;
+  background-color: #57201a; /* Cor de fundo ao passar o mouse */
 }
 
-/* Botão Google */
+/* Botão "Entrar com Google" */
 .google-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
+  display: flex; /* Habilita Flexbox para alinhar ícone e texto */
+  align-items: center; /* Centraliza verticalmente o conteúdo */
+  justify-content: center; /* Centraliza horizontalmente o conteúdo */
+  gap: 0.4rem; /* Espaço entre o ícone e o texto */
   width: 100%;
   padding: 0.8rem;
   height: 48px;
   font-size: 1rem;
   background-color: #ffffff;
   color: #7B2D26;
-  border: 1.5px solid #7B2D26;
+  border: 1.5px solid #7B2D26; /* Borda visível */
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
@@ -94,28 +115,38 @@ h2 {
 }
 
 .google-button i {
-  font-size: 1.2rem;
+  font-size: 1.2rem; /* Tamanho do ícone do Google */
 }
 
 .google-button:hover {
-  background-color: #f9f6f6;
-  border-color: #57201a;
+  background-color: #f9f6f6; /* Leve mudança de cor ao passar o mouse */
+  border-color: #57201a; /* Escurece a borda ao passar o mouse */
 }
 
+/*
+  -----------------------------------------------------------------------------
+  Links de Alternância de Formulário
+  -----------------------------------------------------------------------------
+*/
 .toggle-form {
-  text-align: center;
-  font-size: 0.8rem;
+  text-align: center; /* Centraliza o texto */
+  font-size: 0.8rem; /* Tamanho da fonte menor */
 }
 
 .toggle-form a {
-  color: #7B2D26;
-  text-decoration: none;
-  font-weight: 700;
+  color: #7B2D26; /* Cor do link */
+  text-decoration: none; /* Remove sublinhado padrão */
+  font-weight: 700; /* Negrito */
 }
 
+/*
+  -----------------------------------------------------------------------------
+  Responsividade (Mobile First)
+  -----------------------------------------------------------------------------
+*/
 @media (min-width: 600px) {
   #auth-screen .container {
     max-width: 600px;
-    padding: 2rem;
+    padding: 2rem; /* Aumenta o padding em telas maiores */
   }
 }
