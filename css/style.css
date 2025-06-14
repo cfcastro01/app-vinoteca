@@ -4,11 +4,11 @@
   -----------------------------------------------------------------------------
   Playfair Display: para títulos.
   Inter: para texto geral.
-  MonteCarlo: Nova fonte para o logotipo.
+  Parisienne: Nova fonte para o logotipo.
 */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap'); /* NOVA FONTE PARA O LOGO */
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap'); /* NOVA FONTE PARA O LOGO */
 
 /*
   -----------------------------------------------------------------------------
@@ -42,7 +42,7 @@ body {
   color: var(--color-gold-light-text); /* Texto geral em dourado claro */
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-smoothing: grayscale;
   min-height: 100vh;
 }
 
@@ -55,7 +55,7 @@ body {
   max-width: 480px;
   margin: 0 auto;
   padding: 1.5rem 1.5rem 3rem; /* Espaçamento interno */
-  position: relative;
+  position: relative; /* ESSENCIAL para o posicionamento absoluto do botão logout */
   background-color: var(--color-bordeaux-medium); /* Fundo bordeaux para o container */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra mais forte */
   border-radius: 8px; /* Cantos arredondados */
@@ -67,13 +67,13 @@ body {
   -----------------------------------------------------------------------------
 */
 #logout-btn {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  z-index: 10;
+  position: absolute; /* Posicionamento absoluto */
+  top: 1.5rem; /* Distância do topo do container */
+  right: 1.5rem; /* Distância da direita do container */
+  z-index: 10; /* Garante que o botão fique acima de outros elementos */
   font-size: 0.9rem;
-  background: none;
-  border: 1px solid var(--color-gold-main); /* Borda dourada */
+  background: transparent; /* GARANTE BACKGROUND TRANSPARENTE */
+  border: 1px solid var(--color-gold-main); /* Borda fina dourada */
   color: var(--color-gold-main); /* Texto dourado */
   padding: 0.4rem 0.8rem;
   border-radius: 4px;
@@ -82,9 +82,9 @@ body {
 }
 
 #logout-btn:hover {
-  background-color: var(--color-gold-main); /* Fundo dourado no hover */
-  color: var(--color-bordeaux-medium); /* Texto bordeaux no hover */
-  box-shadow: 0 0 8px rgba(var(--color-gold-main), 0.5); /* Brilho dourado */
+  background-color: rgba(var(--color-gold-main), 0.1); /* Fundo dourado muito sutil no hover */
+  color: var(--color-gold-main); /* Mantém texto dourado */
+  box-shadow: 0 0 5px rgba(var(--color-gold-main), 0.3); /* Brilho suave */
 }
 
 /*
@@ -111,14 +111,15 @@ body {
 }
 
 .logo {
-  font-family: 'MonteCarlo', cursive; /* NOVA FONTE DO LOGO */
-  font-weight: 400; /* Peso da fonte MonteCarlo */
-  font-style: normal; /* Estilo da fonte MonteCarlo */
-  font-size: 3.8rem; /* Tamanho ajustado para MonteCarlo */
-  color: var(--color-gold-main); /* Logo em dourado principal */
-  text-shadow: 0 0 15px rgba(var(--color-gold-main), 0.7); /* Brilho mais intenso */
+  font-family: 'Parisienne', cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3.8rem;
+  color: var(--color-gold-main);
+  text-shadow: 0 0 15px rgba(var(--color-gold-main), 0.7);
   margin: 0;
   line-height: 1;
+  text-align: center;
 }
 
 /*
@@ -130,19 +131,19 @@ body {
   position: relative;
   display: flex;
   width: 100%;
-  border-bottom: 1px solid var(--color-gold-main); /* Linha inferior em dourado principal */
+  border-bottom: 1px solid var(--color-gold-main);
   margin-bottom: 3.5rem;
   padding-bottom: 0.2rem;
 }
 
 .menu button {
   flex: 1;
-  background: none; /* Retorna ao background transparente */
+  background: none;
   border: none;
   padding: 1rem 0;
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--color-gold-light-text); /* Texto do botão em dourado claro */
+  color: var(--color-gold-light-text);
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
@@ -151,8 +152,8 @@ body {
 
 .menu button:hover,
 .menu button:focus {
-  color: var(--color-gold-main); /* Dourado principal no hover/focus */
-  background-color: rgba(var(--color-gold-main), 0.1); /* Fundo dourado sutil no hover */
+  color: var(--color-gold-main);
+  background-color: rgba(var(--color-gold-main), 0.1);
   outline: none;
 }
 
@@ -162,15 +163,15 @@ body {
   bottom: -1px;
   height: 3px;
   width: 50%;
-  background-color: var(--color-gold-main); /* Cor dourada para o indicador */
+  background-color: var(--color-gold-main);
   left: 0;
   transition: left 0.3s ease;
 }
 
 /* Regras de Ativação do Indicador (controladas via JavaScript) */
 .menu button.active {
-    color: var(--color-gold-main); /* Botão ativo também em dourado principal */
-    background-color: rgba(var(--color-gold-main), 0.05); /* Fundo dourado mais sutil para o botão ativo */
+    color: var(--color-gold-main);
+    background-color: rgba(var(--color-gold-main), 0.05);
 }
 .menu button.active ~ .menu-indicator {
   left: 0%;
@@ -187,7 +188,7 @@ body {
 section h2 {
   font-family: 'Playfair Display', serif;
   font-size: 1.8rem;
-  color: var(--color-gold-main); /* Títulos de seção em dourado principal */
+  color: var(--color-gold-main);
   margin-bottom: 2rem;
   text-align: center;
   text-shadow: 0 0 8px rgba(var(--color-gold-main), 0.3);
@@ -209,16 +210,16 @@ form#wine-form select,
 form#wine-form textarea {
   padding: 1rem;
   font-size: 1rem;
-  border: 1px solid var(--color-gold-main); /* Borda dourada */
+  border: 1px solid var(--color-gold-main);
   border-radius: 4px;
-  background-color: var(--color-dark-green); /* NOVO: Fundo verde escuro para os inputs */
-  color: var(--color-gold-light-text); /* Texto claro */
+  background-color: var(--color-dark-green);
+  color: var(--color-gold-light-text);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 form#wine-form input::placeholder,
 form#wine-form textarea::placeholder {
-    color: rgba(var(--color-gold-light-text), 0.6); /* Placeholder mais claro */
+    color: rgba(var(--color-gold-light-text), 0.6);
 }
 
 form#wine-form input:focus,
@@ -230,13 +231,13 @@ form#wine-form textarea:focus {
 }
 
 form#wine-form select option {
-  background-color: var(--color-dark-green); /* NOVO: Fundo das opções do select também em verde escuro */
+  background-color: var(--color-dark-green);
   color: var(--color-gold-light-text);
 }
 
 form#wine-form button[type="submit"] {
-  background-color: var(--color-gold-main); /* Botão de salvar em dourado principal */
-  color: var(--color-dark-bg); /* Texto escuro no botão (cor do body) */
+  background-color: var(--color-gold-main);
+  color: var(--color-dark-bg);
   border: none;
   padding: 1rem;
   font-weight: 700;
@@ -249,7 +250,7 @@ form#wine-form button[type="submit"] {
 
 form#wine-form button[type="submit"]:hover,
 form#wine-form button[type="submit"]:focus {
-  background-color: var(--color-accent-hover); /* Sua cor mais vibrante no hover */
+  background-color: var(--color-accent-hover);
   transform: translateY(-2px);
   outline: none;
 }
@@ -273,7 +274,7 @@ form#wine-form button[type="submit"]:focus {
   font-size: 1rem;
   border: 1px solid var(--color-gold-main);
   border-radius: 4px;
-  background-color: var(--color-dark-green); /* NOVO: Fundo verde escuro para os filtros */
+  background-color: var(--color-dark-green);
   color: var(--color-gold-light-text);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -302,12 +303,12 @@ form#wine-form button[type="submit"]:focus {
 
 /* Cartão de Vinho Individual (Wine Card) */
 .wine-card {
-  background-color: var(--color-bordeaux-medium); /* Fundo do card em bordeaux médio */
-  border: 2px solid var(--color-gold-main); /* NOVO: Borda do card em dourado principal */
+  background-color: var(--color-bordeaux-medium);
+  border: 2px solid var(--color-gold-main);
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  color: var(--color-gold-light-text); /* Texto do card em dourado claro */
+  color: var(--color-gold-light-text);
 }
 
 .wine-header {
@@ -320,7 +321,7 @@ form#wine-form button[type="submit"]:focus {
 .wine-card h2 {
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
-  color: var(--color-gold-main); /* Nome do vinho em dourado principal */
+  color: var(--color-gold-main);
   margin: 0;
   text-align: left;
   text-shadow: none;
@@ -328,12 +329,12 @@ form#wine-form button[type="submit"]:focus {
 
 .wine-card p {
   margin: 0.5rem 0;
-  color: var(--color-gold-light-text); /* Cor do texto normal */
+  color: var(--color-gold-light-text);
 }
 
 .wine-rating-display {
   font-size: 1.2rem;
-  color: var(--color-gold-main); /* Estrelas em dourado principal */
+  color: var(--color-gold-main);
   text-shadow: 0 0 5px rgba(var(--color-gold-main), 0.5);
   letter-spacing: 0.1em;
 }
@@ -341,9 +342,9 @@ form#wine-form button[type="submit"]:focus {
 .wine-comments-display {
     font-style: italic;
     font-size: 0.95rem;
-    color: var(--color-gold-light-text); /* NOVO: Comentários em dourado claro */
+    color: var(--color-gold-light-text);
     margin-top: 1rem;
-    border-top: 1px dashed rgba(var(--color-gold-main), 0.5); /* NOVO: Linha tracejada em dourado */
+    border-top: 1px dashed rgba(var(--color-gold-main), 0.5);
     padding-top: 0.8rem;
 }
 
@@ -362,13 +363,13 @@ form#wine-form button[type="submit"]:focus {
 }
 
 .icon-button:hover {
-  background-color: rgba(var(--color-gold-main), 0.15); /* NOVO: Fundo dourado sutil no hover para os ícones */
+  background-color: rgba(var(--color-gold-main), 0.15);
   transform: translateY(-1px);
 }
 
 .wine-card .material-symbols-outlined {
   font-size: 1.6rem;
-  color: var(--color-gold-main); /* Ícones em dourado principal */
+  color: var(--color-gold-main);
   text-shadow: 0 0 3px rgba(var(--color-gold-main), 0.3);
 }
 

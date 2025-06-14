@@ -8,7 +8,7 @@
 */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap'); /* Importação da fonte MonteCarlo para o logo */
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');  /* Importação da fonte para o logo */
 
 /*
   -----------------------------------------------------------------------------
@@ -70,14 +70,16 @@
   Este bloco garante que o texto do logo esteja centralizado no contexto
   da tela de login e que a fonte MonteCarlo seja aplicada.
 */
-.logo { /* Target o elemento com a classe .logo (seu h1) */
-  text-align: center; /* NOVO: Garante que o texto dentro do logo seja centralizado */
-  /* Reaplicar estilos de fonte/tamanho/cor para garantir que sejam prioritários aqui se necessário */
-  font-family: 'MonteCarlo', cursive; /* Garante que a fonte MonteCarlo seja aplicada */
-  font-size: 3.8rem; /* Consistência no tamanho */
-  color: var(--color-gold-main); /* Consistência na cor */
+.logo {
+  font-family: 'Parisienne', cursive;
   font-weight: 400;
   font-style: normal;
+  font-size: 3.8rem;
+  color: var(--color-gold-main);
+  text-shadow: 0 0 15px rgba(var(--color-gold-main), 0.7);
+  margin: 0;
+  line-height: 1;
+  text-align: center;
 }
 
 /*
