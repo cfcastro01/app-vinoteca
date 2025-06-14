@@ -1,54 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - Vinoteca</title>
-  <!-- Biblioteca de ícones -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vinoteca - Acesso à Conta</title>
+    <!-- Biblioteca de ícones -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-
-  <!-- CSS principal -->
-  <link rel="stylesheet" href="css/style.css" />
-  <!-- CSS login -->
-  <link rel="stylesheet" href="css/login.css" />
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- CSS login -->
+    <link rel="stylesheet" href="css/login.css" />
 </head>
 <body>
 
-  <div id="auth-screen">
-    <div class="container">
+    <div id="auth-screen">
+        <div class="container">
 
-    <header class="header">
-      <h1 class="logo">Vinoteca</h1>
-    </header>
+            <header class="header">
+                <div class="header-slot header-left"></div> <!-- NOVO: Slot esquerdo para centralizar o logo -->
+                <h1 class="logo">Vinoteca</h1>
+                <div class="header-slot header-right"></div><!-- NOVO: Slot direito para centralizar o logo -->
+            </header>
 
-      <!-- Formulário de Login -->
-      <form id="login-form">
-          <h2>Entrar na conta</h2>
-          <input type="email" name="login-email" placeholder="Email" required />
-          <input type="password" name="login-password" placeholder="Senha" required />
-          <button type="submit">Entrar</button>
-          <button class="google-button" type="button">
-            <i class="fa-brands fa-google"></i> Entrar com Google
-          </button>
-          <p class="toggle-form">Não tem uma conta? <a href="#" id="show-register">Criar conta</a></p>
-      </form>
+            <!-- Formulário de Login -->
+            <form id="login-form">
+                <h2>Entrar na Sua Conta</h2>
+                <input type="email" name="login-email" placeholder="E-mail" required />
+                <input type="password" name="login-password" placeholder="Senha" required />
+                <button type="submit">Entrar</button>
+                <button class="google-button" type="button">
+                    <i class="fa-brands fa-google"></i> Entrar com Google
+                </button>
+                <p class="toggle-form">Não tem uma conta? <a href="#" id="show-register">Criar conta</a></p>
+            </form>
 
-      <!-- Formulário de Cadastro -->
-      <form id="register-form" style="display: none;">
-        <h2>Criar uma conta</h2>
-        <input type="text" name="register-name" placeholder="Nome completo" required />
-        <input type="email" name="register-email" placeholder="Email" required />
-        <input type="password" name="register-password" placeholder="Senha" required />
-        <button type="submit">Cadastrar</button>
-        <p class="toggle-form">Já tem uma conta? <a href="#" id="show-login">Entrar</a></p>
-      </form>
+            <!-- Formulário de Cadastro -->
+            <form id="register-form" style="display: none;">
+                <h2>Criar Nova Conta</h2>
+                <input type="text" name="register-name" placeholder="Nome Completo" required />
+                <input type="email" name="register-email" placeholder="E-mail" required />
+                <input type="password" name="register-password" placeholder="Senha" required />
+                <button type="submit">Cadastrar</button>
+                <p class="toggle-form">Já tem uma conta? <a href="#" id="show-login">Entrar</a></p>
+            </form>
 
+        </div>
     </div>
-  </div>
 
-  <script type="module" src="javascript/firebase-app.js"></script>
-  <script type="module" src="javascript/login.js"></script>
+    <script type="module" src="javascript/firebase-app.js"></script>
+    <script type="module" src="javascript/login.js"></script>
 </body>
 </html>

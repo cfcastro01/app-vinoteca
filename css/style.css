@@ -2,9 +2,28 @@
   -----------------------------------------------------------------------------
   Importação de Fontes
   -----------------------------------------------------------------------------
+  Playfair Display: para títulos.
+  Inter: para texto geral.
+  MonteCarlo: Nova fonte para o logotipo.
 */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap'); /* NOVA FONTE PARA O LOGO */
+
+/*
+  -----------------------------------------------------------------------------
+  Definição da Paleta de Cores (para melhor manutenção)
+  -----------------------------------------------------------------------------
+  Usando variáveis CSS para as cores da sua paleta.
+*/
+:root {
+  --color-dark-bg: #250601; /* Seu "preto" - Fundo principal (quase preto bordeaux) */
+  --color-bordeaux-medium: #59001c; /* Seu "vermelho" - Fundo do container e cards */
+  --color-gold-main: #ec8642; /* Seu "bordeaux" - Dourado principal / accent */
+  --color-gold-light-text: #EFE8D7; /* Dourado muito claro para textos em fundos escuros */
+  --color-dark-green: #1d423b; /* Seu "verde escuro" - AGORA USADO NO BACKGROUND DOS INPUTS */
+  --color-accent-hover: #b30908; /* Seu "laranja claro" - Para estados de hover/ativos vibrantes */
+}
 
 /*
   -----------------------------------------------------------------------------
@@ -19,12 +38,12 @@
 }
 
 body {
-  background-color: #FAFAFA;
-  color: #333333;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased; /* Suavização de fonte para Webkit */
-  -moz-osx-font-smoothing: grayscale; /* Suavização de fonte para Firefox no macOS */
-  min-height: 100vh; /* Garante que o corpo ocupe pelo menos a altura total da viewport */
+  background-color: var(--color-dark-bg); /* Fundo muito escuro */
+  color: var(--color-gold-light-text); /* Texto geral em dourado claro */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
 /*
@@ -33,10 +52,13 @@ body {
   -----------------------------------------------------------------------------
 */
 .container {
-  max-width: 480px; /* Largura máxima do conteúdo */
-  margin: 0 auto; /* Centraliza o container horizontalmente */
-  padding: 1rem 1.5rem 3rem; /* Espaçamento interno */
-  position: relative; /* Necessário para posicionar o botão de logout de forma absoluta */
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 3rem; /* Espaçamento interno */
+  position: relative;
+  background-color: var(--color-bordeaux-medium); /* Fundo bordeaux para o container */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra mais forte */
+  border-radius: 8px; /* Cantos arredondados */
 }
 
 /*
@@ -45,20 +67,24 @@ body {
   -----------------------------------------------------------------------------
 */
 #logout-btn {
-  position: absolute; /* Posição absoluta em relação ao .container */
-  top: 1rem; /* Alinhamento superior */
-  right: 1.5rem; /* Alinhamento direito */
-  z-index: 10; /* Garante que o botão fique acima de outros elementos */
-  font-size: 1rem;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 10;
+  font-size: 0.9rem;
   background: none;
-  border: none;
-  color: #7B2D26;
+  border: 1px solid var(--color-gold-main); /* Borda dourada */
+  color: var(--color-gold-main); /* Texto dourado */
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
   cursor: pointer;
-  transition: color 0.3s ease; /* Transição suave para o hover */
+  transition: all 0.3s ease;
 }
 
 #logout-btn:hover {
-  color: #57201a;
+  background-color: var(--color-gold-main); /* Fundo dourado no hover */
+  color: var(--color-bordeaux-medium); /* Texto bordeaux no hover */
+  box-shadow: 0 0 8px rgba(var(--color-gold-main), 0.5); /* Brilho dourado */
 }
 
 /*
@@ -67,18 +93,32 @@ body {
   -----------------------------------------------------------------------------
 */
 .header {
-  display: flex; /* Habilita Flexbox */
-  justify-content: center; /* Centraliza o logo horizontalmente */
-  align-items: center; /* Centraliza o logo verticalmente */
-  margin-bottom: 1.5rem; /* Espaço abaixo do header */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header-slot {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  min-height: 20px;
+}
+
+.header-right {
+  justify-content: flex-end;
 }
 
 .logo {
-  font-family: "Imperial Script", cursive; /* Fonte específica para o logo */
-  font-size: 3rem; /* Tamanho da fonte do logo */
-  color: #7B2D26; /* Cor do logo */
-  font-weight: 400; /* Peso da fonte do logo */
-  /* Margin é 0 pelo reset, mas pode ser redefinido aqui se necessário */
+  font-family: 'MonteCarlo', cursive; /* NOVA FONTE DO LOGO */
+  font-weight: 400; /* Peso da fonte MonteCarlo */
+  font-style: normal; /* Estilo da fonte MonteCarlo */
+  font-size: 3.8rem; /* Tamanho ajustado para MonteCarlo */
+  color: var(--color-gold-main); /* Logo em dourado principal */
+  text-shadow: 0 0 15px rgba(var(--color-gold-main), 0.7); /* Brilho mais intenso */
+  margin: 0;
+  line-height: 1;
 }
 
 /*
@@ -87,50 +127,56 @@ body {
   -----------------------------------------------------------------------------
 */
 .menu {
-  position: relative; /* Necessário para posicionar o indicador da linha */
-  display: flex; /* Habilita Flexbox para os botões do menu */
-  width: 100%; /* Largura total */
-  border-bottom: 1px solid #e0e0e0; /* Linha inferior do menu */
-  margin-bottom: 3rem; /* Espaço abaixo do menu */
+  position: relative;
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid var(--color-gold-main); /* Linha inferior em dourado principal */
+  margin-bottom: 3.5rem;
+  padding-bottom: 0.2rem;
 }
 
 .menu button {
-  flex: 1; /* Faz com que os botões do menu ocupem espaço igual */
-  background: none;
+  flex: 1;
+  background: none; /* Retorna ao background transparente */
   border: none;
-  padding: 0.8rem 0;
-  font-size: 1rem;
+  padding: 1rem 0;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #7B2D26;
+  color: var(--color-gold-light-text); /* Texto do botão em dourado claro */
   cursor: pointer;
-  position: relative; /* Para possíveis efeitos de transição/alinhamento internos */
-  transition: color 0.3s ease;
+  position: relative;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
 }
 
 .menu button:hover,
 .menu button:focus {
-  color: #57201a;
-  outline: none; /* Remove o contorno padrão do foco */
+  color: var(--color-gold-main); /* Dourado principal no hover/focus */
+  background-color: rgba(var(--color-gold-main), 0.1); /* Fundo dourado sutil no hover */
+  outline: none;
 }
 
 /* Linha Indicadora Deslizante do Menu */
 .menu-indicator {
-  position: absolute; /* Posição absoluta em relação ao .menu */
-  bottom: 0; /* Alinhado à parte inferior */
-  height: 2px; /* Altura da linha */
-  width: 50%; /* Largura inicial (metade, para 2 botões) */
-  background-color: #7B2D26; /* Cor da linha */
-  left: 0; /* Posição inicial (esquerda) */
-  transition: left 0.3s ease; /* Transição para o movimento da linha */
+  position: absolute;
+  bottom: -1px;
+  height: 3px;
+  width: 50%;
+  background-color: var(--color-gold-main); /* Cor dourada para o indicador */
+  left: 0;
+  transition: left 0.3s ease;
 }
 
 /* Regras de Ativação do Indicador (controladas via JavaScript) */
-.menu button.active ~ .menu-indicator {
-  left: 0%; /* Posição para o primeiro botão ativo */
+.menu button.active {
+    color: var(--color-gold-main); /* Botão ativo também em dourado principal */
+    background-color: rgba(var(--color-gold-main), 0.05); /* Fundo dourado mais sutil para o botão ativo */
 }
-
+.menu button.active ~ .menu-indicator {
+  left: 0%;
+}
 .menu button:nth-child(2).active ~ .menu-indicator {
-  left: 50%; /* Posição para o segundo botão ativo */
+  left: 50%;
 }
 
 /*
@@ -138,12 +184,13 @@ body {
   Títulos de Seção
   -----------------------------------------------------------------------------
 */
-section h2 { /* Mudado de h1 para h2 conforme a revisão do HTML */
+section h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  color: #7B2D26;
-  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: var(--color-gold-main); /* Títulos de seção em dourado principal */
+  margin-bottom: 2rem;
   text-align: center;
+  text-shadow: 0 0 8px rgba(var(--color-gold-main), 0.3);
 }
 
 /*
@@ -153,40 +200,57 @@ section h2 { /* Mudado de h1 para h2 conforme a revisão do HTML */
 */
 form#wine-form {
   display: flex;
-  flex-direction: column; /* Organiza os campos verticalmente */
-  gap: 1.5rem; /* Espaço entre os campos */
+  flex-direction: column;
+  gap: 1.8rem;
 }
 
 form#wine-form input,
-form#wine-form select {
-  padding: 0.8rem;
+form#wine-form select,
+form#wine-form textarea {
+  padding: 1rem;
   font-size: 1rem;
-  border: 1.5px solid #ccc;
+  border: 1px solid var(--color-gold-main); /* Borda dourada */
   border-radius: 4px;
-  transition: border-color 0.3s ease;
+  background-color: var(--color-dark-green); /* NOVO: Fundo verde escuro para os inputs */
+  color: var(--color-gold-light-text); /* Texto claro */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form#wine-form input::placeholder,
+form#wine-form textarea::placeholder {
+    color: rgba(var(--color-gold-light-text), 0.6); /* Placeholder mais claro */
 }
 
 form#wine-form input:focus,
-form#wine-form select:focus {
-  border-color: #7B2D26;
+form#wine-form select:focus,
+form#wine-form textarea:focus {
+  border-color: var(--color-gold-main);
+  box-shadow: 0 0 10px rgba(var(--color-gold-main), 0.7);
   outline: none;
 }
 
+form#wine-form select option {
+  background-color: var(--color-dark-green); /* NOVO: Fundo das opções do select também em verde escuro */
+  color: var(--color-gold-light-text);
+}
+
 form#wine-form button[type="submit"] {
-  background-color: #7B2D26;
-  color: #FAFAFA;
+  background-color: var(--color-gold-main); /* Botão de salvar em dourado principal */
+  color: var(--color-dark-bg); /* Texto escuro no botão (cor do body) */
   border: none;
-  padding: 0.8rem;
+  padding: 1rem;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.1rem;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 form#wine-form button[type="submit"]:hover,
 form#wine-form button[type="submit"]:focus {
-  background-color: #57201a;
+  background-color: var(--color-accent-hover); /* Sua cor mais vibrante no hover */
+  transform: translateY(-2px);
   outline: none;
 }
 
@@ -199,23 +263,29 @@ form#wine-form button[type="submit"]:focus {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  /* padding: 0 0.3rem; */ /* Remova se não for usado */
+  margin-bottom: 2rem;
 }
 
 .filters input[type="text"],
 .filters select {
-  flex: 1; /* Ocupa o espaço disponível dentro do flex container (filters) */
-  padding: 0.8rem;
+  flex: 1;
+  padding: 1rem;
   font-size: 1rem;
-  border: 1.5px solid #ccc;
+  border: 1px solid var(--color-gold-main);
   border-radius: 4px;
-  transition: border-color 0.3s ease;
+  background-color: var(--color-dark-green); /* NOVO: Fundo verde escuro para os filtros */
+  color: var(--color-gold-light-text);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filters input[type="text"]::placeholder {
+    color: rgba(var(--color-gold-light-text), 0.6);
 }
 
 .filters input[type="text"]:focus,
 .filters select:focus {
-  border-color: #7B2D26;
+  border-color: var(--color-gold-main);
+  box-shadow: 0 0 10px rgba(var(--color-gold-main), 0.7);
   outline: none;
 }
 
@@ -227,87 +297,89 @@ form#wine-form button[type="submit"]:focus {
 #wine-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* Espaço entre os cartões de vinho */
-}
-
-/* Estilos gerais para itens da lista (se wine-item for uma classe usada) */
-.wine-item {
-  padding: 1rem;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
-  font-size: 1rem;
-  line-height: 1.3;
-}
-
-.wine-item strong {
-  color: #7B2D26;
-  font-weight: 700;
-  font-size: 1rem;
-}
-
-.wine-item span.liked {
-  color: #2a7a1f; /* verde */
-  font-weight: 600;
-}
-
-.wine-item span.not-liked {
-  color: #a12a2a; /* vermelho */
-  font-weight: 600;
+  gap: 1.5rem;
 }
 
 /* Cartão de Vinho Individual (Wine Card) */
 .wine-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 1rem;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  background-color: var(--color-bordeaux-medium); /* Fundo do card em bordeaux médio */
+  border: 2px solid var(--color-gold-main); /* NOVO: Borda do card em dourado principal */
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  color: var(--color-gold-light-text); /* Texto do card em dourado claro */
 }
 
 .wine-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.8rem;
 }
 
 .wine-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--color-gold-main); /* Nome do vinho em dourado principal */
   margin: 0;
-  font-size: 1rem;
-  color: #333;
+  text-align: left;
+  text-shadow: none;
 }
 
 .wine-card p {
-  margin: 0.4rem 0;
-  color: #666;
+  margin: 0.5rem 0;
+  color: var(--color-gold-light-text); /* Cor do texto normal */
 }
 
-.wine-card span {
-  font-size: 0.8rem;
-  color: #7B2D26;
+.wine-rating-display {
+  font-size: 1.2rem;
+  color: var(--color-gold-main); /* Estrelas em dourado principal */
+  text-shadow: 0 0 5px rgba(var(--color-gold-main), 0.5);
+  letter-spacing: 0.1em;
+}
+
+.wine-comments-display {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--color-gold-light-text); /* NOVO: Comentários em dourado claro */
+    margin-top: 1rem;
+    border-top: 1px dashed rgba(var(--color-gold-main), 0.5); /* NOVO: Linha tracejada em dourado */
+    padding-top: 0.8rem;
 }
 
 .card-actions {
   display: flex;
-  gap: 1rem; /* Espaço entre os botões de ação */
+  gap: 0.8rem;
 }
 
 .icon-button {
   background: none;
   border: none;
   cursor: pointer;
-  /* padding: 0.4rem; */
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .icon-button:hover {
-  background-color: #eee;
+  background-color: rgba(var(--color-gold-main), 0.15); /* NOVO: Fundo dourado sutil no hover para os ícones */
+  transform: translateY(-1px);
 }
 
 .wine-card .material-symbols-outlined {
-  font-size: 1.5rem;
-  color: #7B2D26;
+  font-size: 1.6rem;
+  color: var(--color-gold-main); /* Ícones em dourado principal */
+  text-shadow: 0 0 3px rgba(var(--color-gold-main), 0.3);
+}
+
+/*
+  -----------------------------------------------------------------------------
+  Estilo para o Textarea (compatibilidade com formulário)
+  -----------------------------------------------------------------------------
+*/
+textarea {
+    resize: vertical;
+    min-height: 80px;
 }
 
 /*
@@ -315,9 +387,22 @@ form#wine-form button[type="submit"]:focus {
   Responsividade (Mobile First)
   -----------------------------------------------------------------------------
 */
-/* Já mobile-first, desktop vai herdar estilo */
 @media (min-width: 600px) {
   .container {
     max-width: 600px;
+    padding: 2rem 2.5rem 4rem;
+  }
+
+  .filters {
+      flex-direction: row;
+      gap: 1rem;
+  }
+  .filters input[type="text"],
+  .filters select {
+      max-width: calc(50% - 0.5rem);
+  }
+
+  .menu button {
+      font-size: 1.2rem;
   }
 }
