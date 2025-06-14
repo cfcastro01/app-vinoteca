@@ -15,7 +15,8 @@ import {
   deleteDoc, 
   doc, 
   updateDoc, 
-  setDoc 
+  setDoc,
+  getDoc // <--- ESSA LINHA PRECISA SER IMPORTADA AQUI
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 import { 
   getAuth, 
@@ -69,6 +70,7 @@ export {
   doc, // Função para referenciar um documento específico
   updateDoc, // Função para atualizar campos de um documento existente
   setDoc, // Função para criar ou sobrescrever um documento
+  getDoc, // <--- NOVA EXPORTAÇÃO: getDoc para buscar um único documento
   onAuthStateChanged, // Listener para mudanças no estado de autenticação
   signInWithEmailAndPassword, // Função para login com e-mail e senha
   createUserWithEmailAndPassword, // Função para criar conta com e-mail e senha
