@@ -18,7 +18,11 @@
         <!-- Cabeçalho Principal da Aplicação -->
         <header class="header">
             <div class="header-slot header-left"></div> 
-            <h1 class="logo">Vinoteca</h1>
+            <!-- CORRIGIDO: Imagem e texto agora dentro do h1.logo, com classes para estilo -->
+            <h1 class="logo">
+                <img class="logo-icon" src="/img/wine-glass.svg" alt="Desenho de taça de vinho">
+                <span class="logo-text">Vinoteca</span>
+            </h1>
             <div class="header-slot header-right"></div>
         </header>
 
@@ -32,7 +36,7 @@
         <main>
             <!-- Seção de Cadastro de Vinho -->
             <section id="form-screen">
-                <h2>Detalhes do Vinho</h2> <!-- Título secundário para a seção do formulário -->
+                <h2>Detalhes do Vinho</h2>
                 <form id="wine-form">
                     <input type="text" id="wine-name" placeholder="Nome do Vinho" required>
                     <input type="text" id="wine-type" placeholder="Tipo de Uva / Variedade" required>
@@ -68,7 +72,7 @@
 
             <!-- Seção da Lista de Vinhos (Minha Adega) -->
             <section id="list-screen" style="display: none;">
-                <h2>Lista de Vinhos</h2> <!-- Título secundário para a seção da lista -->
+                <h2>Minha Adega</h2>
                 <div class="filters">
                     <input type="text" id="search" placeholder="🔍 Buscar por nome ou tipo...">
                     <!-- O filtro de avaliação continua sendo um select para facilitar a lógica de filtragem -->

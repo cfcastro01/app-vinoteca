@@ -2,13 +2,13 @@
   -----------------------------------------------------------------------------
   Importação de Fontes
   -----------------------------------------------------------------------------
-  As fontes já são importadas em 'style.css'. Esta seção é mantida para clareza
-  e para garantir que, mesmo que 'style.css' não fosse carregado, as fontes
+  As fontes já são importadas em 'style.css'. Esta seção é mantida para clareza e
+  para garantir que, mesmo que 'style.css' não fosse carregado, as fontes
   ainda estariam disponíveis para esta folha de estilo.
 */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');  /* Importação da fonte para o logo */
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap'); /* FONTE PARISSIENNE */
 
 /*
   -----------------------------------------------------------------------------
@@ -48,16 +48,14 @@
   -----------------------------------------------------------------------------
 */
 #auth-screen {
-  /* O background do body (de style.css) já define o fundo principal. */
   padding: 1.5rem;
 }
 
 #auth-screen .container {
   max-width: 480px;
   margin: 0 auto;
-  /* Estilos do container copiados de .container em style.css */
   padding: 1.5rem 1.5rem 3rem;
-  background-color: var(--color-bordeaux-medium); /* Fundo bordeaux para o container */
+  background-color: var(--color-bordeaux-medium);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
 }
@@ -66,21 +64,37 @@
   -----------------------------------------------------------------------------
   Cabeçalho (Header) e Logo na Tela de Login
   -----------------------------------------------------------------------------
-  Os estilos principais para .header e .logo são definidos em style.css.
-  Este bloco garante que o texto do logo esteja centralizado no contexto
-  da tela de login e que a fonte MonteCarlo seja aplicada.
+  Os estilos principais para .header são definidos em style.css.
+  Este bloco define o estilo do elemento .logo (o h1) e seus filhos (imagem e texto).
 */
-.logo {
-  font-family: 'Parisienne', cursive;
+
+/* NOVO: Estilo para o grupo de imagem e texto do logo */
+.logo-group {
+    display: flex; /* Habilita Flexbox para alinhar imagem e texto */
+    align-items: flex-end; /* ALINHA VERTICALMENTE NA BASE */
+    justify-content: center; /* Centraliza imagem e texto entre si */
+    gap: 4px; /* ESPAÇO ENTRE IMAGEM E TEXTO */
+    white-space: nowrap; /* Evita que o grupo quebre linha */
+}
+
+.logo { /* Target o elemento com a classe .logo (seu h1) */
+  font-family: 'Parisienne', cursive; /* APLICANDO A FONTE AQUI */
   font-weight: 400;
   font-style: normal;
-  font-size: 3.8rem;
+  font-size: 2.5rem; /* TAMANHO DA FONTE DO LOGO AJUSTADO */
   color: var(--color-gold-main);
   text-shadow: 0 0 15px rgba(var(--color-gold-main), 0.7);
   margin: 0;
   line-height: 1;
-  text-align: center;
 }
+
+.logo-icon { /* Estilo para a imagem dentro do logo-group */
+  width: 50px; /* TAMANHO DA IMAGEM AJUSTADO */
+  height: auto; /* Mantém a proporção */
+  flex-shrink: 0; /* Impede que a imagem encolha */
+  vertical-align: middle;
+}
+
 
 /*
   -----------------------------------------------------------------------------
@@ -90,11 +104,11 @@
 */
 h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.8rem; /* Aumentado para 1.8rem para consistência com style.css */
-  color: var(--color-gold-main); /* Cor dourada principal */
-  margin-bottom: 2rem; /* Aumentado para consistência com style.css */
+  font-size: 1.8rem;
+  color: var(--color-gold-main);
+  margin-bottom: 2rem;
   text-align: center;
-  text-shadow: 0 0 8px rgba(var(--color-gold-main), 0.3); /* Sombra para destaque */
+  text-shadow: 0 0 8px rgba(var(--color-gold-main), 0.3);
 }
 
 /*
@@ -105,7 +119,7 @@ h2 {
 #auth-screen form {
   display: flex;
   flex-direction: column;
-  gap: 1.8rem; /* Aumentado para consistência com style.css */
+  gap: 1.8rem;
 }
 
 /* Inputs de Texto e Senha */
@@ -113,21 +127,21 @@ h2 {
   width: 100%;
   height: 48px;
   font-size: 1rem;
-  padding: 1rem; /* Aumentado para consistência com style.css */
-  border: 1px solid var(--color-gold-main); /* Borda dourada */
+  padding: 1rem;
+  border: 1px solid var(--color-gold-main);
   border-radius: 4px;
-  background-color: var(--color-dark-green); /* Fundo verde escuro para inputs */
-  color: var(--color-gold-light-text); /* Texto claro */
+  background-color: var(--color-dark-green);
+  color: var(--color-gold-light-text);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #auth-screen input::placeholder {
-  color: rgba(var(--color-gold-light-text), 0.6); /* Placeholder mais claro */
+  color: rgba(var(--color-gold-light-text), 0.6);
 }
 
 #auth-screen input:focus {
   border-color: var(--color-gold-main);
-  box-shadow: 0 0 10px rgba(var(--color-gold-main), 0.7); /* Brilho dourado ao focar */
+  box-shadow: 0 0 10px rgba(var(--color-gold-main), 0.7);
   outline: none;
 }
 
@@ -138,13 +152,13 @@ h2 {
 */
 /* Botão "Entrar" (Submit) */
 #auth-screen button[type="submit"] {
-  background-color: var(--color-gold-main); /* Botão de salvar em dourado principal */
-  color: var(--color-dark-bg); /* Texto escuro no botão (cor do body) */
-  font-size: 1.1rem; /* Aumentado para consistência */
-  font-weight: 700; /* Aumentado para consistência */
+  background-color: var(--color-gold-main);
+  color: var(--color-dark-bg);
+  font-size: 1.1rem;
+  font-weight: 700;
   border: none;
   cursor: pointer;
-  padding: 1rem; /* Aumentado para consistência */
+  padding: 1rem;
   height: 48px;
   border-radius: 4px;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -152,8 +166,8 @@ h2 {
 }
 
 #auth-screen button[type="submit"]:hover {
-  background-color: var(--color-accent-hover); /* Sua cor mais vibrante no hover */
-  transform: translateY(-2px); /* Efeito de elevação */
+  background-color: var(--color-accent-hover);
+  transform: translateY(-2px);
 }
 
 /* Botão "Entrar com Google" */
@@ -163,28 +177,28 @@ h2 {
   justify-content: center;
   gap: 0.4rem;
   width: 100%;
-  padding: 1rem; /* Aumentado para consistência */
+  padding: 1rem;
   height: 48px;
-  font-size: 1.1rem; /* Aumentado para consistência */
-  background-color: transparent; /* Fundo transparente */
-  color: var(--color-gold-main); /* Texto em dourado principal */
-  border: 1px solid var(--color-gold-main); /* Borda em dourado principal */
+  font-size: 1.1rem;
+  background-color: transparent;
+  color: var(--color-gold-main);
+  border: 1px solid var(--color-gold-main);
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease; /* Transição para todos os efeitos */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra similar ao submit */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .google-button i {
-  font-size: 1.3rem; /* Tamanho do ícone ligeiramente maior */
-  color: var(--color-gold-main); /* Cor do ícone em dourado principal */
+  font-size: 1.3rem;
+  color: var(--color-gold-main);
 }
 
 .google-button:hover {
-  background-color: rgba(var(--color-gold-main), 0.15); /* Fundo dourado sutil no hover */
-  border-color: var(--color-gold-main); /* Borda permanece dourada */
-  transform: translateY(-2px); /* Efeito de elevação */
+  background-color: rgba(var(--color-gold-main), 0.15);
+  border-color: var(--color-gold-main);
+  transform: translateY(-2px);
 }
 
 /*
@@ -194,19 +208,19 @@ h2 {
 */
 .toggle-form {
   text-align: center;
-  font-size: 0.9rem; /* Levemente maior para melhor leitura */
-  color: var(--color-gold-light-text); /* Cor do texto para o parágrafo */
+  font-size: 0.9rem;
+  color: var(--color-gold-light-text);
 }
 
 .toggle-form a {
-  color: var(--color-gold-main); /* Cor do link em dourado principal */
+  color: var(--color-gold-main);
   text-decoration: none;
   font-weight: 700;
   transition: color 0.3s ease;
 }
 
 .toggle-form a:hover {
-  color: var(--color-accent-hover); /* Sua cor mais vibrante no hover */
+  color: var(--color-accent-hover);
 }
 
 /*
@@ -217,6 +231,6 @@ h2 {
 @media (min-width: 600px) {
   #auth-screen .container {
     max-width: 600px;
-    padding: 2.5rem 3.5rem 5rem; /* Ajuste o padding para telas maiores, mais espaço */
+    padding: 2.5rem 3.5rem 5rem;
   }
 }
