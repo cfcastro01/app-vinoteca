@@ -68,20 +68,20 @@
   Este bloco define o estilo do elemento .logo (o h1) e seus filhos (imagem e texto).
 */
 
-/* NOVO: Estilo para o grupo de imagem e texto do logo */
+/* Estilo para o grupo de imagem e texto do logo */
 .logo-group {
-    display: flex; /* Habilita Flexbox para alinhar imagem e texto */
+    display: flex;
     align-items: flex-end; /* ALINHA VERTICALMENTE NA BASE */
-    justify-content: center; /* Centraliza imagem e texto entre si */
+    justify-content: center;
     gap: 4px; /* ESPAÇO ENTRE IMAGEM E TEXTO */
-    white-space: nowrap; /* Evita que o grupo quebre linha */
+    white-space: nowrap;
 }
 
 .logo { /* Target o elemento com a classe .logo (seu h1) */
-  font-family: 'Parisienne', cursive; /* APLICANDO A FONTE AQUI */
+  font-family: 'Parisienne', cursive;
   font-weight: 400;
   font-style: normal;
-  font-size: 2.5rem; /* TAMANHO DA FONTE DO LOGO AJUSTADO */
+  font-size: 2.5rem; /* TAMANHO DA FONTE DO LOGO */
   color: var(--color-gold-main);
   text-shadow: 0 0 15px rgba(var(--color-gold-main), 0.7);
   margin: 0;
@@ -89,10 +89,14 @@
 }
 
 .logo-icon { /* Estilo para a imagem dentro do logo-group */
-  width: 50px; /* TAMANHO DA IMAGEM AJUSTADO */
+  width: 50px; /* TAMANHO DA IMAGEM */
   height: auto; /* Mantém a proporção */
-  flex-shrink: 0; /* Impede que a imagem encolha */
+  flex-shrink: 0;
   vertical-align: middle;
+
+  /* NOVO: Propriedades para cor e destaque */
+  /* REMOVIDO: color: var(--color-gold-main); - pois a cor agora está no próprio SVG */
+  filter: drop-shadow(0 0 5px rgba(var(--color-gold-main), 0.5)); /* Adiciona um brilho sutil */
 }
 
 
