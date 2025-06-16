@@ -123,7 +123,7 @@ body {
   font-family: 'Parisienne', cursive;
   font-weight: 400;
   font-style: normal;
-  font-size: 2.5rem; /* TAMANHO DA FONTE DO LOGO */
+  font-size: 3rem; /* TAMANHO DA FONTE DO LOGO */
   color: var(--color-gold-main); /* Cor dourada principal para o logo */
   text-shadow: 0 0 15px rgba(var(--color-gold-main), 0.7); /* Brilho */
   margin: 0; /* Remove margens padrão de h1 */
@@ -131,7 +131,7 @@ body {
 }
 
 .logo-icon { /* Estilo para a imagem dentro do logo-group */
-  width: 50px; /* TAMANHO DA IMAGEM */
+  width: 55px; /* TAMANHO DA IMAGEM */
   height: auto; /* Mantém a proporção */
   flex-shrink: 0; /* Impede que a imagem encolha */
   vertical-align: middle; /* Ajuda no alinhamento vertical com o texto se não for flex */
@@ -207,7 +207,7 @@ body {
 */
 section h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: var(--color-gold-main);
   margin-bottom: 2rem;
   text-align: center;
@@ -340,7 +340,7 @@ form#wine-form button[type="submit"]:focus {
 
 .wine-card h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--color-gold-main);
   margin: 0;
   text-align: left;
@@ -361,7 +361,7 @@ form#wine-form button[type="submit"]:focus {
 
 .wine-comments-display {
     font-style: italic;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--color-gold-light-text);
     margin-top: 1rem;
     border-top: 1px dashed rgba(var(--color-gold-main), 0.5);
